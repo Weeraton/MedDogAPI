@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 import pickle
-from sklearn import tree
+
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 from flask import Flask
@@ -36,7 +36,7 @@ def rsilabel(j):
 def get_data():
     le = LabelEncoder()
 
-    value =[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40]
+    value =[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     request_json = request.get_json()
     temp = request_json.get('species')
     if temp == 'DOG' or temp == 'dog' or temp == 'Dog ':
@@ -56,45 +56,29 @@ def get_data():
     V1_array = V1_array.reshape(1, -1)
     value[1] = le.transform(V1_array)
 
-    value[2] = rsilabel(request_json.get('Amikacin'))
-    value[3] = rsilabel(request_json.get('Ampicillin'))
-    value[4] = rsilabel(request_json.get('Amoxicillin/clavulanic acid'))
-    value[5] = rsilabel(request_json.get('Cefixime'))
-    value[6] = rsilabel(request_json.get('Cefovecin'))
-    value[7] = rsilabel(request_json.get('Cefpodoxime'))
-    value[8] = rsilabel(request_json.get('Ceftiofur'))
-    value[9] = rsilabel(request_json.get('Ceftriaxone'))
-    value[10] = rsilabel(request_json.get('Cephalexin'))
-    value[11] = rsilabel(request_json.get('Chloramphenicol'))
-    value[12] = rsilabel(request_json.get('Colistin (polymyxin E)'))
-    value[14] = rsilabel(request_json.get('ESBL'))
-    value[15] = rsilabel(request_json.get('Enrofloxacin'))
-    value[16] = rsilabel(request_json.get('Fosfomycin'))
-    value[17] = rsilabel(request_json.get('Gentamicin'))
-    value[18] = rsilabel(request_json.get('Imipenem'))
-    value[19] = rsilabel(request_json.get('Marbofloxacin'))
-    value[20] = rsilabel(request_json.get('Nitrofurantoin'))
-    value[21] = rsilabel(request_json.get('Piperacillin-tazobactam'))
-    value[22] = rsilabel(request_json.get('Polymyxin B'))
-    value[23] = rsilabel(request_json.get('Rifampin'))
-    value[24] = rsilabel(request_json.get('Sulfamethoxazole/trimethoprim'))
-    value[25] = rsilabel(request_json.get('Tetracycline'))
-    value[26] = rsilabel(request_json.get('Tobramycin'))
-    value[27] = rsilabel(request_json.get('Benzyl penicillin'))
-    value[28] = rsilabel(request_json.get('Cefotaxime'))
-    value[29] = rsilabel(request_json.get('Cefoxitin'))
-    value[30] = rsilabel(request_json.get('Cephalothin'))
-    value[31] = rsilabel(request_json.get('Clindamycin'))
-    value[32] = rsilabel(request_json.get('Erythromycin'))
-    value[33] = rsilabel(request_json.get('Fusidic acid'))
-    value[34] = rsilabel(request_json.get('Inducible clindamycin'))
-    value[35] = rsilabel(request_json.get('Levofloxacin'))
-    value[36] = rsilabel(request_json.get('Linezolid'))
-    value[37] = rsilabel(request_json.get('Mupirocin'))
-    value[38] = rsilabel(request_json.get('Oxacillin'))
-    value[39] = rsilabel(request_json.get('Rifampicin'))
-    value[40] = rsilabel(request_json.get('Vancomycin'))
-    pathlist = ["Amikacin_decisionTree.sav","Amoxicillin_decisionTree.sav","Azithromycin_decisionTree.sav","Cefazolin_decisionTree.sav","Cefixime_decisionTree.sav","Cefovecin_decisionTree.sav","Ceftriaxone_decisionTree.sav","Cephalexin_decisionTree.sav","Clindamycin_decisionTree.sav","Doxycycline_decisionTree.sav","Gentamicin_decisionTree.sav","Nitrofurantoin_decisionTree.sav","Pradofloxacin_decisionTree.sav","Sulfamethoxazole_trimethoprim_decisionTree.sav","Vancomycin_decisionTree.sav"]
+    value[2] = rsilabel(request_json.get('amoxicillin/clavulanic'))
+    value[3] = rsilabel(request_json.get('benzylpenicillin'))
+    value[4] = rsilabel(request_json.get('cefalotin'))
+    value[5] = rsilabel(request_json.get('cefovecin'))
+    value[6] = rsilabel(request_json.get('cefoxitin'))
+    value[7] = rsilabel(request_json.get('cefpodoxime'))
+    value[8] = rsilabel(request_json.get('chloramphenicol'))
+    value[9] = rsilabel(request_json.get('clindamycin'))
+    value[10] = rsilabel(request_json.get('enrofloxacin'))
+    value[11] = rsilabel(request_json.get('erythromycin'))
+    value[12] = rsilabel(request_json.get('fusidic acid'))
+    value[13] = rsilabel(request_json.get('gentamicin'))
+    value[14] = rsilabel(request_json.get('inducible clindamycin'))
+    value[15] = rsilabel(request_json.get('marbofloxacin'))
+    value[16] = rsilabel(request_json.get('mupirocin'))
+    value[17] = rsilabel(request_json.get('nitrofurantoin'))
+    value[18] = rsilabel(request_json.get('oxacillin'))
+    value[19] = rsilabel(request_json.get('rifampicin'))
+    value[20] = rsilabel(request_json.get('sulfamethoxazole/trimethoprim'))
+    value[21] = rsilabel(request_json.get('teicoplanin'))
+    value[22] = rsilabel(request_json.get('tetracycline'))
+    value[23] = rsilabel(request_json.get('vancomycin'))
+    pathlist = ["amikacin_decisionTree.sav","amox_decisionTree.sav","cefalexin_decisionTree.sav","cefovecin_decisionTree.sav","clindamycin_decisionTree.sav","doxycycline_decisionTree.sav","enrofloxacin_decisionTree.sav","marbofloxacin_decisionTree.sav","nitrofurantoin_decisionTree.sav","sulfa_decisionTree.sav","vancomycin_decisionTree.sav"]
     ans =[]
     for i in pathlist:
         print(i)
@@ -105,18 +89,20 @@ def get_data():
             else:
                 break
         infile = open("GP_model/"+i, 'rb')
+        print(type(infile))
         model = pickle.load(infile)
+        print(type(model))
         my_array = np.array(value)
         my_array =my_array.reshape(1,-1)
         x = model.predict(my_array)
-        print(type(x))
+        #print(type(x))
         for j in x:
-            print(type(j))
+            #print(type(j))
             if j is np.bool_(True):
-                print("Do")
+                #print("Do")
                 ans.append(listToString(Med_Name))
     response_content ={
-            "Med" : str(ans)
+            "Med" : ans
     }
     return jsonify(response_content)
 
@@ -124,7 +110,7 @@ def get_data():
 def get_data2():
     le = LabelEncoder()
 
-    value =[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
+    value =[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34]
     request_json = request.get_json()
     temp = request_json.get('species')
     if temp == 'DOG' or temp == 'dog' or temp == 'Dog ':
@@ -142,34 +128,41 @@ def get_data2():
     V1_array = np.array(temp)
     V1_array = V1_array.reshape(1, -1)
     value[1] = le.transform(V1_array)
-    value[2] = rsilabel(request_json.get('Amikacin'))
-    value[3] = rsilabel(request_json.get('Ampicillin'))
-    value[4] = rsilabel(request_json.get('Amoxicillin/clavulanic acid'))
-    value[5] = rsilabel(request_json.get('Cefixime'))
-    value[6] = rsilabel(request_json.get('Cefovecin'))
-    value[7] = rsilabel(request_json.get('Cefpodoxime'))
-    value[8] = rsilabel(request_json.get('Ceftiofur'))
-    value[9] = rsilabel(request_json.get('Ceftriaxone'))
-    value[10] = rsilabel(request_json.get('Cephalexin'))
-    value[11] = rsilabel(request_json.get('Chloramphenicol'))
-    value[12] = rsilabel(request_json.get('Colistin (polymyxin E)'))
-    value[13] = rsilabel(request_json.get('Doxycycline'))
-    value[14] = rsilabel(request_json.get('ESBL'))
-    value[15] = rsilabel(request_json.get('Enrofloxacin'))
-    value[16] = rsilabel(request_json.get('Fosfomycin'))
-    value[17] = rsilabel(request_json.get('Gentamicin'))
-    value[18] = rsilabel(request_json.get('Imipenem'))
-    value[19] = rsilabel(request_json.get('Marbofloxacin'))
-    value[20] = rsilabel(request_json.get('Nitrofurantoin'))
-    value[21] = rsilabel(request_json.get('Piperacillin-tazobactam'))
-    value[22] = rsilabel(request_json.get('Polymyxin B'))
-    value[23] = rsilabel(request_json.get('Rifampin'))
-    value[24] = rsilabel(request_json.get('Sulfamethoxazole/trimethoprim'))
-    value[25] = rsilabel(request_json.get('Tetracycline'))
-    value[26] = rsilabel(request_json.get('Tobramycin'))
-    value[27] = rsilabel(request_json.get('Piperacillin'))
+    value[2] = rsilabel(request_json.get('amikacin'))
+    value[3] = rsilabel(request_json.get('amoxicillin/clavulanic acid'))
+    value[4] = rsilabel(request_json.get('ampicillin'))
+    value[5] = rsilabel(request_json.get('benzylpenicillin'))
+    value[6] = rsilabel(request_json.get('cefalexin'))
+    value[7] = rsilabel(request_json.get('cefalotin'))
+    value[8] = rsilabel(request_json.get('cefovecin'))
+    value[9] = rsilabel(request_json.get('cefoxitin'))
+    value[10] = rsilabel(request_json.get('cefpodoxime'))
+    value[11] = rsilabel(request_json.get('ceftiofur'))
+    value[12] = rsilabel(request_json.get('chloramphenicol'))
+    value[13] = rsilabel(request_json.get('clindamycin'))
+    value[14] = rsilabel(request_json.get('doxycycline'))
+    value[15] = rsilabel(request_json.get('enrofloxacin'))
+    value[16] = rsilabel(request_json.get('erythromycin'))
+    value[17] = rsilabel(request_json.get('esbl'))
+    value[18] = rsilabel(request_json.get('fusidic acid'))
+    value[19] = rsilabel(request_json.get('gentamicin'))
+    value[20] = rsilabel(request_json.get('imipenem'))
+    value[21] = rsilabel(request_json.get('inducible clindamycin'))
+    value[22] = rsilabel(request_json.get('marbofloxacin'))
+    value[23] = rsilabel(request_json.get('mupirocin'))
+    value[24] = rsilabel(request_json.get('neomycin'))
+    value[25] = rsilabel(request_json.get('nitrofurantoin'))
+    value[26] = rsilabel(request_json.get('oxacillin'))
+    value[27] = rsilabel(request_json.get('piperacillin'))
+    value[28] = rsilabel(request_json.get('polymyxin b'))
+    value[29] = rsilabel(request_json.get('pradofloxacin'))
+    value[30] = rsilabel(request_json.get('rifampin'))
+    value[31] = rsilabel(request_json.get('sulfamethoxazole/trimethoprim'))
+    value[32] = rsilabel(request_json.get('tetracycline'))
+    value[33] = rsilabel(request_json.get('tobramycin'))
+    value[34] = rsilabel(request_json.get('vancomycin'))
 
-    pathlist = ["Amikacin_decisionTree.sav","Amoxicillin_decisionTree.sav","Cefalexin_decisionTree.sav","Cefixime_decisionTree.sav","Cefovecin_decisionTree.sav","Ceftriaxone_decisionTree.sav","Ceftriazone_decisionTree.sav","Cephalexin_decisionTree.sav","Cephazolin_decisionTree.sav","Clindamycin_decisionTree.sav","Colistin (polymyxin E)_decisionTree.sav","Doxycycline_decisionTree.sav","Empirically_decisionTree.sav","Endofloxacin_decisionTree.sav","Fosfomycin_decisionTree.sav","Gentamicin_decisionTree.sav","Imipenem_decisionTree.sav","Marboflocacin_decisionTree.sav","Metronidazole_decisionTree.sav","Nitrofurantoin_decisionTree.sav","Piperacillin-tazobactam_decisionTree.sav","Sulfamethoxazole_trimethoprim_decisionTree.sav","Tetracycline_decisionTree.sav"]
+    pathlist = ["amikacin_decisionTree.sav","amox_decisionTree.sav","cefalexin_decisionTree.sav","cefovecin_decisionTree.sav","doxycycline_decisionTree.sav","enrofloxacin_decisionTree.sav","gentamicin_decisionTree.sav","imipenem_decisionTree.sav","marbo_decisionTree.sav","nitrofurantoin_decisionTree.sav","sulfa_decisionTree.sav"]
     ans =[]
     for i in pathlist:
         print(i)
@@ -191,7 +184,7 @@ def get_data2():
                 print("Do")
                 ans.append(listToString(Med_Name))
     response_content ={
-            "Med" : str(ans)
+            "Med" : ans
     }
     return jsonify(response_content)
 
